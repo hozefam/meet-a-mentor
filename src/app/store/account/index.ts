@@ -11,6 +11,13 @@ export class AccountStateModel {
 }
 
 export namespace AccountActions {
+  export class Signup {
+    static readonly type = '[Auth] Signup';
+    constructor(
+      public payload: { email: string; password: string; name: string }
+    ) {}
+  }
+
   export class Login {
     static readonly type = '[Auth] Login';
     constructor(public payload: { email: string; password: string }) {}
@@ -48,6 +55,29 @@ export class AccountState {
   @Selector()
   static userName(state: AccountStateModel): string {
     return state?.account?.name ?? '';
+  }
+
+  @Action(AccountActions.Signup)
+  async Signup(
+    { patchState, dispatch }: StateContext<AccountStateModel>,
+    action: AccountActions.Signup
+  ) {
+    let { email, password, name } = action.payload;
+    try {
+      let account = await Api.provider().account.create(
+        'unique()',
+        email,
+        password,
+        name
+      );
+      let session = await Api.provider().account.createSession(email, password);
+      patchState({
+        account,
+      });
+      dispatch(new AccountActions.Redirect({ path: '/dashboard' }));
+    } catch (e: any) {
+      console.log('Error creating Account');
+    }
   }
 
   @Action(AccountActions.Login)

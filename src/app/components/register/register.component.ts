@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
         email: this.signupForm.value.email,
         password: this.signupForm.value.password,
       };
-      //this.store.dispatch(new AccountActions.Register(payload));
+      this.store.dispatch(new AccountActions.Signup(payload));
     } else {
       Object.values(this.signupForm.controls).forEach((control) => {
         if (control.invalid) {

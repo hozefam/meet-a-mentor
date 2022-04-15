@@ -12,7 +12,6 @@ import { Observable } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
   @Select(AccountState.isAuthenticated) isAuthenticated!: Observable<boolean>;
-  @Select(AccountState.userName) userName!: Observable<string>;
 
   constructor(private store: Store) {}
 

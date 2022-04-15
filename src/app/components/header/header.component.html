@@ -1,13 +1,8 @@
 <div class="header-shell">
   <div>
     <a nz-button nzType="link" [routerLink]="['']">
-      <h2 nz-typography>Meet a Mentor</h2>
+      <h2 nz-typography>Meet a <mark>Mentor</mark></h2>
     </a>
-  </div>
-  <div>
-    <span *ngIf="isAuthenticated | async" nz-typography
-      ><mark> Welcome, {{ userName | async }}!</mark></span
-    >
   </div>
   <div class="header-shell__button-group">
     <button

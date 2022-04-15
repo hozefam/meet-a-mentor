@@ -12,3 +12,15 @@ content {
   padding: 10px;
   width: 100%;
 }
+
+content::before {
+  content: "";
+  background-image: url(~src/assets/images/bg.png);
+  background-size: cover;
+  position: absolute;
+  top: 85px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.2;
+}

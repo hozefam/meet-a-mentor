@@ -1,1 +1,5 @@
-<p>dashboard works!</p>
+<div>
+  <h2 *ngIf="isAuthenticated | async" nz-typography>
+    Welcome, {{ userName | async }}!
+  </h2>
+</div>
