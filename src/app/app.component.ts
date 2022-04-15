@@ -1,3 +1,6 @@
+import { Selector, Store } from '@ngxs/store';
+
+import { AccountActions } from 'src/app/store/account';
 import { Component } from '@angular/core';
 
 @Component({
@@ -5,4 +8,8 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {}
+export class AppComponent {
+  constructor(private store: Store) {
+    this.store.dispatch(new AccountActions.FetchAccount());
+  }
+}

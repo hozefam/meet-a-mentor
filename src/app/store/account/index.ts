@@ -12,8 +12,16 @@ export class AccountStateModel {
 
 export namespace AccountActions {
   export class Login {
-    static readonly type = '[Account] Login';
+    static readonly type = '[Auth] Login';
     constructor(public payload: { email: string; password: string }) {}
+  }
+
+  export class Logout {
+    static readonly type = '[Auth] Logout';
+  }
+
+  export class FetchAccount {
+    static readonly type = '[Auth] FetchAccount';
   }
 
   export class Redirect {
@@ -59,6 +67,37 @@ export class AccountState {
       dispatch(new AccountActions.Redirect({ path: '/dashboard' }));
     } catch (e: any) {
       console.log('Error Logging in');
+    }
+  }
+
+  @Action(AccountActions.Logout)
+  async Logout(
+    { patchState, dispatch }: StateContext<AccountStateModel>,
+    action: AccountActions.Logout
+  ) {
+    try {
+      await Api.provider().account.deleteSession('current');
+      patchState({
+        account: null,
+      });
+      dispatch(new AccountActions.Redirect({ path: '' }));
+    } catch (e: any) {
+      console.log('Error Loggin Out');
+    }
+  }
+
+  @Action(AccountActions.FetchAccount)
+  async FetchAccount(
+    { patchState }: StateContext<AccountStateModel>,
+    action: AccountActions.FetchAccount
+  ) {
+    try {
+      let account = await Api.provider().account.get();
+      patchState({
+        account: account,
+      });
+    } catch (e: any) {
+      console.log('Error Fetching account');
     }
   }
 

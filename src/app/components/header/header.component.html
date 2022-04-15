@@ -34,6 +34,7 @@
       nz-button
       nzType="default"
       *ngIf="isAuthenticated | async"
+      (click)="handleLogout()"
     >
       Logout
     </button>
