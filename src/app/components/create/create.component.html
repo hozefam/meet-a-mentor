@@ -5,7 +5,7 @@
     <div class="dashboard-shell__create_form_step_body">
       <form
         nz-form
-        [formGroup]="validateForm"
+        [formGroup]="createEventForm"
         (ngSubmit)="submitForm()"
         [nzLayout]="'vertical'"
       >
@@ -67,7 +67,7 @@
         (ngModelChange)="onChange($event)"
         [nzDateRender]="tplRender"
         [nzDisabledDate]="disabledDate"
-        *ngIf="selectedDates.size < 3"
+        *ngIf="selectedDates.size < maxLimit"
       ></nz-date-picker>
 
       <ng-template #tplRender let-current>
@@ -81,11 +81,24 @@
 
       <nz-alert
         nzType="error"
-        [nzMessage]="descriptionTemplate2"
-        *ngIf="!(selectedDates.size < 3)"
+        [nzMessage]="messageTemplate1"
+        [nzDescription]="descriptionTemplate2"
+        *ngIf="!(selectedDates.size < maxLimit)"
+        nzShowIcon
       ></nz-alert>
+      <ng-template #messageTemplate1>
+        <span>Woah! You've reached the max limit!</span>
+      </ng-template>
       <ng-template #descriptionTemplate2>
-        <span>Cannot create more than 3 slots</span>
+        <span> Max {{ maxLimit }} days can be selected</span>
+        <br />
+        <a
+          href="https://twitter.com/hozefam"
+          target="_blank"
+          rel="noreferrer"
+          class="font-bold text-primary-default underline"
+          >DM @hozefam to get more options</a
+        >
       </ng-template>
     </div>
   </div>

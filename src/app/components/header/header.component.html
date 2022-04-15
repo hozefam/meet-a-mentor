@@ -26,6 +26,15 @@
       Register
     </button>
 
+    <a
+      nz-button
+      nzType="link"
+      nzSize="large"
+      *ngIf="isAuthenticated | async"
+      [routerLink]="['/', 'dashboard']"
+      >Dashboard</a
+    >
+
     <button
       nzSize="large"
       nz-button

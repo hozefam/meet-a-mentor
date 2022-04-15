@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { differenceInCalendarDays, setHours } from 'date-fns';
 
+import { Features } from './../../../utils/features';
 import format from 'date-fns/format';
 import parseDate from 'date-fns/parse';
 
@@ -22,10 +23,15 @@ export class CreateComponent implements OnInit {
 
   data: slot[] = [];
 
-  validateForm: FormGroup;
+  createEventForm: FormGroup;
+
+  maxLimit = Features.maxDaysLimit;
+
+  private readonly longDateFormat = 'EEEE - do MMMM, yyyy';
+  private readonly shortDateFormat = 'dd.MM.yyyy';
 
   constructor(private fb: FormBuilder) {
-    this.validateForm = this.fb.group({
+    this.createEventForm = this.fb.group({
       title: [null, [Validators.required]],
       description: [null, [Validators.required]],
       eventLink: [null, [Validators.required]],
@@ -39,7 +45,7 @@ export class CreateComponent implements OnInit {
     differenceInCalendarDays(current, this.today) < 1;
 
   onChange(result: Date): void {
-    let resultDate = format(result, 'dd.MM.yyyy');
+    let resultDate = format(result, this.shortDateFormat);
     if (this.selectedDates.has(resultDate)) {
       this.selectedDates.delete(resultDate);
     } else {
@@ -48,10 +54,10 @@ export class CreateComponent implements OnInit {
 
     this.data = [];
     this.selectedDates.forEach((date) => {
-      let parsedDate = parseDate(date, 'dd.MM.yyyy', new Date());
+      let parsedDate = parseDate(date, this.shortDateFormat, new Date());
       this.data.push({
         date: date,
-        parsedDate: format(parsedDate, 'EEEE - do MMMM, yyyy'),
+        parsedDate: format(parsedDate, this.longDateFormat),
       });
     });
 
@@ -59,11 +65,11 @@ export class CreateComponent implements OnInit {
   }
 
   setDateSelection(current: any) {
-    return this.selectedDates.has(format(current, 'dd.MM.yyyy'));
+    return this.selectedDates.has(format(current, this.shortDateFormat));
   }
 
   submitForm(): void {
-    console.log('submit', this.validateForm.value);
+    console.log('submit', this.createEventForm.value);
   }
 
   cancelSlot(cancelledSlotDate: string) {
