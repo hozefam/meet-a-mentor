@@ -1,0 +1,130 @@
+<section class="dashboard-shell__create_form">
+  <div class="dashboard-shell__create_form_step">
+    <h4 nz-typography>1. Enter mentoring event details</h4>
+
+    <div class="dashboard-shell__create_form_step_body">
+      <form
+        nz-form
+        [formGroup]="validateForm"
+        (ngSubmit)="submitForm()"
+        [nzLayout]="'vertical'"
+      >
+        <nz-form-item>
+          <nz-form-label [nzSpan]="null">Title</nz-form-label>
+          <nz-form-control [nzSpan]="null" nzErrorTip="Please input title!">
+            <input nz-input formControlName="title" placeholder="Title" />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSpan]="null">Description</nz-form-label>
+          <nz-form-control
+            [nzSpan]="null"
+            nzErrorTip="Please input description!"
+          >
+            <input
+              nz-input
+              formControlName="description"
+              placeholder="Description"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSpan]="null">Event Link</nz-form-label>
+          <nz-form-control
+            [nzSpan]="null"
+            nzErrorTip="Please input event link!"
+          >
+            <input
+              nz-input
+              formControlName="eventLink"
+              placeholder="Event Link"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-alert nzType="info" [nzMessage]="descriptionTemplate1"></nz-alert>
+        <ng-template #descriptionTemplate1>
+          <span>Create event on </span>
+          <a
+            href="https://meet.google.com/"
+            target="_blank"
+            rel="noreferrer"
+            class="font-bold text-primary-default underline"
+            >Google Meet</a
+          >
+        </ng-template>
+      </form>
+    </div>
+  </div>
+  <div class="dashboard-shell__create_form_step">
+    <h4 nz-typography>2. Select date(s)</h4>
+    <div class="dashboard-shell__create_form_step_body">
+      <nz-date-picker
+        nzInline
+        [(ngModel)]="today"
+        (ngModelChange)="onChange($event)"
+        [nzDateRender]="tplRender"
+        [nzDisabledDate]="disabledDate"
+        *ngIf="selectedDates.size < 3"
+      ></nz-date-picker>
+
+      <ng-template #tplRender let-current>
+        <div
+          class="ant-picker-cell-inner"
+          [class.border]="setDateSelection(current)"
+        >
+          {{ current.getDate() }}
+        </div>
+      </ng-template>
+
+      <nz-alert
+        nzType="error"
+        [nzMessage]="descriptionTemplate2"
+        *ngIf="!(selectedDates.size < 3)"
+      ></nz-alert>
+      <ng-template #descriptionTemplate2>
+        <span>Cannot create more than 3 slots</span>
+      </ng-template>
+    </div>
+  </div>
+  <div class="dashboard-shell__create_form_step">
+    <h4 nz-typography>3. What hours are you available?</h4>
+    <div class="shadow">
+      <ul
+        nz-list
+        [nzDataSource]="data"
+        nzBordered
+        nzSize="large"
+        [nzNoResult]="emptyTemplate"
+      >
+        <li nz-list-item *ngFor="let item of data" nzNoFlex>
+          <nz-card
+            style="width: 500px"
+            [nzTitle]="item.parsedDate"
+            [nzExtra]="extraTemplate"
+          >
+            <p>Card content</p>
+            <p>Card content</p>
+            <p>Card content</p>
+          </nz-card>
+          <ng-template #extraTemplate>
+            <a (click)="cancelSlot(item.date)">Cancel</a>
+          </ng-template>
+        </li>
+      </ul>
+      <ng-template #emptyTemplate>
+        <nz-empty
+          style="width: 500px"
+          nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+          [nzNotFoundContent]="contentTpl"
+        >
+          <ng-template #contentTpl>
+            <span> No dates selected! </span>
+          </ng-template>
+        </nz-empty>
+      </ng-template>
+    </div>
+  </div>
+</section>
