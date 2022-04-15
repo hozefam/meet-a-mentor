@@ -35,96 +35,11 @@
     </section>
   </div>
 
-  <div class="dashboard-shell__create">
-    <section class="dashboard-shell__create_form" *ngIf="showCreateFrom">
-      <div class="dashboard-shell__create_form_step">
-        <h4 nz-typography>1. Enter mentoring event details</h4>
-        <form nz-form>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="email">E-mail</nz-form-label>
-            <nz-form-control [nzSpan]="14">
-              <input nz-input name="email" type="email" id="email" />
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="email">E-mail</nz-form-label>
-            <nz-form-control [nzSpan]="14">
-              <input nz-input name="email" type="email" id="email" />
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="email">E-mail</nz-form-label>
-            <nz-form-control [nzSpan]="14">
-              <input nz-input name="email" type="email" id="email" />
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="email">E-mail</nz-form-label>
-            <nz-form-control [nzSpan]="14">
-              <input nz-input name="email" type="email" id="email" />
-            </nz-form-control>
-          </nz-form-item>
-        </form>
-      </div>
-      <div class="dashboard-shell__create_form_step">
-        <h4 nz-typography>2. Select date(s)</h4>
-        <nz-date-picker
-          nzInline
-          [(ngModel)]="date"
-          (ngModelChange)="onChange($event)"
-          [nzDateRender]="tplRender"
-        ></nz-date-picker>
-
-        <ng-template #tplRender let-current>
-          <div
-            class="ant-picker-cell-inner"
-            [class.border]="setDateSelection(current)"
-          >
-            {{ current.getDate() }}
-          </div>
-        </ng-template>
-      </div>
-      <div class="dashboard-shell__create_form_step">
-        <h4 nz-typography>3. What hours are you available?</h4>
-        <ul
-          nz-list
-          [nzDataSource]="data"
-          nzBordered
-          nzSize="large"
-          [nzNoResult]="emptyTemplate"
-        >
-          <li nz-list-item *ngFor="let item of data" nzNoFlex>
-            {{ item }}
-          </li>
-        </ul>
-        <ng-template #emptyTemplate>
-          <nz-empty
-            nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-            [nzNotFoundContent]="contentTpl"
-          >
-            <ng-template #contentTpl>
-              <span> No dates selected! </span>
-            </ng-template>
-          </nz-empty>
-        </ng-template>
-      </div>
-    </section>
+  <div *ngIf="showCreateFrom">
+    <app-create></app-create>
   </div>
 
-  <section class="dashboard-shell__events" *ngIf="!showCreateFrom">
-    <div *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8]">
-      <nz-card
-        style="width: 300px"
-        nzTitle="Card title"
-        [nzExtra]="extraTemplate"
-      >
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
-      </nz-card>
-      <ng-template #extraTemplate>
-        <a>More</a>
-      </ng-template>
-    </div>
+  <section *ngIf="!showCreateFrom">
+    <app-list></app-list>
   </section>
 </div>
