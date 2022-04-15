@@ -15,25 +15,11 @@ export class DashboardComponent implements OnInit {
   @Select(AccountState.userName) userName!: Observable<string>;
 
   showCreateFrom = false;
-
   date = null;
 
   selectedDates = new Set<string>();
 
-  data = [
-    {
-      title: 'Title 1',
-    },
-    {
-      title: 'Title 2',
-    },
-    {
-      title: 'Title 3',
-    },
-    {
-      title: 'Title 4',
-    },
-  ];
+  data = [];
 
   constructor() {}
 

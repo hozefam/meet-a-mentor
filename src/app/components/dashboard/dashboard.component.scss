@@ -29,10 +29,15 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 20px;
-  justify-items: stretch;
   height: 100%;
   width: 100%;
   padding: 20px;
+  justify-items: flex-start;
+}
+
+.dashboard-shell__create_form_step {
+  display: flex;
+  flex-direction: column;
 }
 
 .dashboard-shell__events {

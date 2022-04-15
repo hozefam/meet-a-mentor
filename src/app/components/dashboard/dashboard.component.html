@@ -37,7 +37,8 @@
 
   <div class="dashboard-shell__create">
     <section class="dashboard-shell__create_form" *ngIf="showCreateFrom">
-      <div>
+      <div class="dashboard-shell__create_form_step">
+        <h4 nz-typography>1. Enter mentoring event details</h4>
         <form nz-form>
           <nz-form-item>
             <nz-form-label [nzSpan]="6" nzFor="email">E-mail</nz-form-label>
@@ -65,7 +66,8 @@
           </nz-form-item>
         </form>
       </div>
-      <div>
+      <div class="dashboard-shell__create_form_step">
+        <h4 nz-typography>2. Select date(s)</h4>
         <nz-date-picker
           nzInline
           [(ngModel)]="date"
@@ -82,12 +84,29 @@
           </div>
         </ng-template>
       </div>
-      <div>
-        <ul nz-list [nzDataSource]="data" nzBordered nzSize="large">
+      <div class="dashboard-shell__create_form_step">
+        <h4 nz-typography>3. What hours are you available?</h4>
+        <ul
+          nz-list
+          [nzDataSource]="data"
+          nzBordered
+          nzSize="large"
+          [nzNoResult]="emptyTemplate"
+        >
           <li nz-list-item *ngFor="let item of data" nzNoFlex>
             {{ item }}
           </li>
         </ul>
+        <ng-template #emptyTemplate>
+          <nz-empty
+            nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+            [nzNotFoundContent]="contentTpl"
+          >
+            <ng-template #contentTpl>
+              <span> No dates selected! </span>
+            </ng-template>
+          </nz-empty>
+        </ng-template>
       </div>
     </section>
   </div>
