@@ -1,5 +1,111 @@
-<div>
-  <h2 *ngIf="isAuthenticated | async" nz-typography>
-    Welcome, {{ userName | async }}!
-  </h2>
+<div class="dashboard-shell">
+  <div class="dashboard-shell__welcome">
+    <h2 *ngIf="isAuthenticated | async" nz-typography>
+      Welcome, {{ userName | async }}!
+    </h2>
+
+    <section *ngIf="!showCreateFrom">
+      <button
+        nz-button
+        nzType="default"
+        nzSize="large"
+        (click)="handleShowCreateFrom()"
+      >
+        <i nz-icon nzType="clock-circle" nzTheme="twotone"></i>
+        Create a new event
+      </button>
+    </section>
+
+    <section *ngIf="showCreateFrom">
+      <button
+        nz-button
+        nzType="default"
+        nzSize="large"
+        (click)="handleCancelCreate()"
+        nzDanger
+      >
+        <i
+          nz-icon
+          nzType="close-circle"
+          nzTheme="twotone"
+          [nzTwotoneColor]="'red'"
+        ></i>
+        Cancel
+      </button>
+    </section>
+  </div>
+
+  <div class="dashboard-shell__create">
+    <section class="dashboard-shell__create_form" *ngIf="showCreateFrom">
+      <div>
+        <form nz-form>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="email">E-mail</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+              <input nz-input name="email" type="email" id="email" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="email">E-mail</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+              <input nz-input name="email" type="email" id="email" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="email">E-mail</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+              <input nz-input name="email" type="email" id="email" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="email">E-mail</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+              <input nz-input name="email" type="email" id="email" />
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </div>
+      <div>
+        <nz-date-picker
+          nzInline
+          [(ngModel)]="date"
+          (ngModelChange)="onChange($event)"
+          [nzDateRender]="tplRender"
+        ></nz-date-picker>
+
+        <ng-template #tplRender let-current>
+          <div
+            class="ant-picker-cell-inner"
+            [class.border]="setDateSelection(current)"
+          >
+            {{ current.getDate() }}
+          </div>
+        </ng-template>
+      </div>
+      <div>
+        <ul nz-list [nzDataSource]="data" nzBordered nzSize="large">
+          <li nz-list-item *ngFor="let item of data" nzNoFlex>
+            {{ item }}
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <section class="dashboard-shell__events" *ngIf="!showCreateFrom">
+    <div *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8]">
+      <nz-card
+        style="width: 300px"
+        nzTitle="Card title"
+        [nzExtra]="extraTemplate"
+      >
+        <p>Card content</p>
+        <p>Card content</p>
+        <p>Card content</p>
+      </nz-card>
+      <ng-template #extraTemplate>
+        <a>More</a>
+      </ng-template>
+    </div>
+  </section>
 </div>

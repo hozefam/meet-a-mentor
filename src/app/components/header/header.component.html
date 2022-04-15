@@ -12,6 +12,7 @@
       [routerLink]="['/', 'login']"
       *ngIf="!(isAuthenticated | async)"
     >
+      <i nz-icon nzType="login" nzTheme="outline"></i>
       Login
     </button>
     <button
@@ -21,6 +22,7 @@
       [routerLink]="['/', 'register']"
       *ngIf="!(isAuthenticated | async)"
     >
+      <i nz-icon nzType="form" nzTheme="outline"></i>
       Register
     </button>
 
@@ -31,6 +33,7 @@
       *ngIf="isAuthenticated | async"
       (click)="handleLogout()"
     >
+      <i nz-icon nzType="logout" nzTheme="outline"></i>
       Logout
     </button>
   </div>
