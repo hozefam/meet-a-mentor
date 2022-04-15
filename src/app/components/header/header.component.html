@@ -1,0 +1,41 @@
+<div class="header-shell">
+  <div>
+    <a nz-button nzType="link" [routerLink]="['']">
+      <h2 nz-typography>Meet a Mentor</h2>
+    </a>
+  </div>
+  <div>
+    <span *ngIf="isAuthenticated | async" nz-typography
+      ><mark> Welcome, {{ userName | async }}!</mark></span
+    >
+  </div>
+  <div class="header-shell__button-group">
+    <button
+      nzSize="large"
+      nz-button
+      nzType="primary"
+      [routerLink]="['/', 'login']"
+      *ngIf="!(isAuthenticated | async)"
+    >
+      Login
+    </button>
+    <button
+      nzSize="large"
+      nz-button
+      nzType="primary"
+      [routerLink]="['/', 'register']"
+      *ngIf="!(isAuthenticated | async)"
+    >
+      Register
+    </button>
+
+    <button
+      nzSize="large"
+      nz-button
+      nzType="default"
+      *ngIf="isAuthenticated | async"
+    >
+      Logout
+    </button>
+  </div>
+</div>

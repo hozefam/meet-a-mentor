@@ -1,0 +1,25 @@
+:host {
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+}
+
+.header-shell {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 10px;
+  width: 80%;
+}
+
+.header-shell__button-group {
+  display: flex;
+  gap: 10px;
+}
+
+header-shell__username {
+  margin-top: 2px;
+}
