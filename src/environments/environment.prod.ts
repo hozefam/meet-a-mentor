@@ -1,7 +1,8 @@
 export const environment = {
   production: true,
-  APP_ENDPOINT: 'http://localhost/v1',
-  APP_PROJECT: '62596a291f9c278f2ee3',
+  APP_ENDPOINT:
+    'http://8080-appwrite-integrationforg-8975o1yd3lc.ws-eu40.gitpod.io/v1',
+  APP_PROJECT: '6259eb59da2523b0f862',
   APP_COLLECTION_ID: '',
   MAXDAYSLIMIT: 3,
 };
